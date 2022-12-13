@@ -17,6 +17,7 @@
 		467C76F42948C378008FAC55 /* VnavigateUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C76F32948C378008FAC55 /* VnavigateUITestsLaunchTests.swift */; };
 		467C77032948C427008FAC55 /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C77022948C427008FAC55 /* CustomColor.swift */; };
 		467C77052948C510008FAC55 /* PhoneNumberFofmatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C77042948C510008FAC55 /* PhoneNumberFofmatter.swift */; };
+		467C77092948C66A008FAC55 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C77082948C66A008FAC55 /* Author.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		467C76F32948C378008FAC55 /* VnavigateUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VnavigateUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		467C77022948C427008FAC55 /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
 		467C77042948C510008FAC55 /* PhoneNumberFofmatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberFofmatter.swift; sourceTree = "<group>"; };
+		467C77082948C66A008FAC55 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				467C77062948C552008FAC55 /* Modules */,
+				467C77072948C5F7008FAC55 /* Models */,
 				467C77012948C412008FAC55 /* Helpers */,
 				467C77002948C3EE008FAC55 /* Application */,
 				467C76D42948C376008FAC55 /* ViewController.swift */,
@@ -152,6 +155,14 @@
 			children = (
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		467C77072948C5F7008FAC55 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				467C77082948C66A008FAC55 /* Author.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				467C77092948C66A008FAC55 /* Author.swift in Sources */,
 				467C77052948C510008FAC55 /* PhoneNumberFofmatter.swift in Sources */,
 				467C76D52948C376008FAC55 /* ViewController.swift in Sources */,
 				467C76D12948C376008FAC55 /* AppDelegate.swift in Sources */,
