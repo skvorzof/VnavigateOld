@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
 
     private let coordinator: HomeCoordinator
     
-    private var collectionView: UICollectionView!
+    private var collectionView: UICollectionView = UICollectionView()
     
     init(coordinator: HomeCoordinator) {
         self.coordinator = coordinator
@@ -42,8 +42,8 @@ class HomeViewController: UIViewController {
         collectionView.backgroundColor = .systemBackground
         view.addSubview(collectionView)
 
-        collectionView.register(FriendCell.self, forCellWithReuseIdentifier: FriendCell.reuseId)
-        collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCell.reuseId)
+        collectionView.register(FriendCell.self, forCellWithReuseIdentifier: FriendCell.identifier)
+        collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCell.identifier)
     }
 
     private func createDataSource() {
@@ -52,11 +52,11 @@ class HomeViewController: UIViewController {
             cellProvider: { collectionView, indexPath, item in
                 switch self.sections[indexPath.section].type {
                 case "friends":
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCell.reuseId, for: indexPath) as? FriendCell
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCell.identifier, for: indexPath) as? FriendCell
                     cell?.setupCell(with: item)
                     return cell
                 default:
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.reuseId, for: indexPath) as? PostCell
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.identifier, for: indexPath) as? PostCell
                     cell?.setupCell(with: item)
                     return cell
                 }

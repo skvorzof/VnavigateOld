@@ -9,8 +9,6 @@ import UIKit
 
 class PostCell: UICollectionViewCell {
 
-    static let reuseId = "PostCell"
-
     private let avatarImage = CircularImageView()
     private let authorLabel = UILabel()
     private let professionLabel = UILabel()
@@ -91,7 +89,7 @@ class PostCell: UICollectionViewCell {
             articleLabel.topAnchor.constraint(equalTo: thumbnailImage.bottomAnchor, constant: 10),
             articleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             articleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            
+
             likeIcon.widthAnchor.constraint(equalToConstant: 28),
             likeIcon.heightAnchor.constraint(equalToConstant: 28),
             likeIcon.topAnchor.constraint(equalTo: articleLabel.bottomAnchor, constant: 7),

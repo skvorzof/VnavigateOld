@@ -41,6 +41,5 @@ final class AuthCoordinator {
     func coordinateToConfirmLogin() {
         let confirmLoginViewController = ConfirmLoginViewController(coordinator: self)
         navigationController.pushViewController(confirmLoginViewController, animated: true)
-        
     }
 }

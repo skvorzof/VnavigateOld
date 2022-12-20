@@ -9,8 +9,6 @@ import UIKit
 
 class FriendCell: UICollectionViewCell {
 
-    static let reuseId = "FriendCell"
-    
     private let avatarImage = CircularImageView()
 
     override init(frame: CGRect) {

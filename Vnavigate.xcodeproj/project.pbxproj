@@ -20,6 +20,8 @@
 		4647A73B2951DEFE00C32B3D /* ConfirmRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4647A73A2951DEFE00C32B3D /* ConfirmRegisterViewController.swift */; };
 		4647A73D2951DF6200C32B3D /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4647A73C2951DF6200C32B3D /* AuthCoordinator.swift */; };
 		4647A73F2951E4BB00C32B3D /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4647A73E2951E4BB00C32B3D /* HomeCoordinator.swift */; };
+		4647A7452952232900C32B3D /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4647A7442952232900C32B3D /* UIView + Extension.swift */; };
+		4647A74829522D4300C32B3D /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4647A74729522D4300C32B3D /* HomeViewModel.swift */; };
 		467C76D12948C376008FAC55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C76D02948C376008FAC55 /* AppDelegate.swift */; };
 		467C76D32948C376008FAC55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467C76D22948C376008FAC55 /* SceneDelegate.swift */; };
 		467C76DA2948C378008FAC55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 467C76D92948C378008FAC55 /* Assets.xcassets */; };
@@ -68,6 +70,8 @@
 		4647A73A2951DEFE00C32B3D /* ConfirmRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmRegisterViewController.swift; sourceTree = "<group>"; };
 		4647A73C2951DF6200C32B3D /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		4647A73E2951E4BB00C32B3D /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		4647A7442952232900C32B3D /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
+		4647A74729522D4300C32B3D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		467C76CD2948C376008FAC55 /* Vnavigate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vnavigate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		467C76D02948C376008FAC55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		467C76D22948C376008FAC55 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,8 +121,8 @@
 		4626EA722949DDB5006C55D9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				467C77102948CC02008FAC55 /* HomeViewController.swift */,
-				4626EA7A294A03BD006C55D9 /* HomeDetailViewController.swift */,
+				4647A73E2951E4BB00C32B3D /* HomeCoordinator.swift */,
+				4647A7652953303700C32B3D /* Scenes */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -126,28 +130,17 @@
 		4626EA7C294A077F006C55D9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				4647A7682953314100C32B3D /* Scenes */,
 				4626EA7D294A079E006C55D9 /* ProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		4647A72A2951DC9100C32B3D /* Coordinators */ = {
-			isa = PBXGroup;
-			children = (
-				4647A72B2951DCB100C32B3D /* AppCoordinator.swift */,
-				4647A73C2951DF6200C32B3D /* AuthCoordinator.swift */,
-				4647A72D2951DD8100C32B3D /* TabCoordinator.swift */,
-				4647A73E2951E4BB00C32B3D /* HomeCoordinator.swift */,
-			);
-			path = Coordinators;
-			sourceTree = "<group>";
-		};
 		4647A72F2951DDB600C32B3D /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				4647A7372951DEBB00C32B3D /* Register */,
-				4647A7322951DE3A00C32B3D /* Login */,
-				4647A7302951DDFC00C32B3D /* AuthViewController.swift */,
+				4647A73C2951DF6200C32B3D /* AuthCoordinator.swift */,
+				4647A7642953301600C32B3D /* Scenes */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -170,40 +163,80 @@
 			path = Register;
 			sourceTree = "<group>";
 		};
-		4647A7402951E70200C32B3D /* Networking */ = {
+		4647A7412951E72F00C32B3D /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		4647A7412951E72F00C32B3D /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
+				4647A72B2951DCB100C32B3D /* AppCoordinator.swift */,
+				4647A7672953311500C32B3D /* Tab */,
 				4647A72F2951DDB600C32B3D /* Auth */,
-				4626EA7C294A077F006C55D9 /* Profile */,
 				4626EA722949DDB5006C55D9 /* Home */,
+				4626EA7C294A077F006C55D9 /* Profile */,
 			);
-			path = ViewControllers;
+			path = Flows;
 			sourceTree = "<group>";
 		};
-		4647A7422951E91300C32B3D /* SupportingFiles */ = {
+		4647A7422951E91300C32B3D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				467C77012948C412008FAC55 /* Helpers */,
-				467C770D2948CB92008FAC55 /* Extensions */,
+				467C77022948C427008FAC55 /* CustomColor.swift */,
 				467C76DB2948C378008FAC55 /* LaunchScreen.storyboard */,
 				467C76D92948C378008FAC55 /* Assets.xcassets */,
 			);
-			path = SupportingFiles;
+			path = Resources;
 			sourceTree = "<group>";
 		};
-		4647A7432951E96100C32B3D /* Views */ = {
+		4647A76329532E1A00C32B3D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4626EA762949EB3A006C55D9 /* CircularImageView.swift */,
+				467C77042948C510008FAC55 /* PhoneNumberFofmatter.swift */,
+				467C770D2948CB92008FAC55 /* Extensions */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4647A7642953301600C32B3D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				4647A7302951DDFC00C32B3D /* AuthViewController.swift */,
+				4647A7322951DE3A00C32B3D /* Login */,
+				4647A7372951DEBB00C32B3D /* Register */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		4647A7652953303700C32B3D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				4647A766295330BC00C32B3D /* Details */,
+				4647A74729522D4300C32B3D /* HomeViewModel.swift */,
+				467C77102948CC02008FAC55 /* HomeViewController.swift */,
 				467C771A2948D776008FAC55 /* Cells */,
 			);
-			path = Views;
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		4647A766295330BC00C32B3D /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				4626EA7A294A03BD006C55D9 /* HomeDetailViewController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		4647A7672953311500C32B3D /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				4647A72D2951DD8100C32B3D /* TabCoordinator.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
+		4647A7682953314100C32B3D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		467C76C42948C376008FAC55 = {
@@ -230,12 +263,10 @@
 			isa = PBXGroup;
 			children = (
 				467C77002948C3EE008FAC55 /* Application */,
-				4647A72A2951DC9100C32B3D /* Coordinators */,
+				4647A7412951E72F00C32B3D /* Flows */,
 				467C77152948CF40008FAC55 /* Models */,
-				4647A7402951E70200C32B3D /* Networking */,
-				4647A7422951E91300C32B3D /* SupportingFiles */,
-				4647A7412951E72F00C32B3D /* ViewControllers */,
-				4647A7432951E96100C32B3D /* Views */,
+				4647A7422951E91300C32B3D /* Resources */,
+				4647A76329532E1A00C32B3D /* Utilities */,
 				467C76DE2948C378008FAC55 /* Info.plist */,
 			);
 			path = Vnavigate;
@@ -267,21 +298,12 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		467C77012948C412008FAC55 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				467C77022948C427008FAC55 /* CustomColor.swift */,
-				467C77042948C510008FAC55 /* PhoneNumberFofmatter.swift */,
-				4626EA762949EB3A006C55D9 /* CircularImageView.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		467C770D2948CB92008FAC55 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				467C770E2948CBBA008FAC55 /* Bundle + Extension.swift */,
 				4626EA782949FB96006C55D9 /* String + Extension.swift */,
+				4647A7442952232900C32B3D /* UIView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -436,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4626EA7B294A03BD006C55D9 /* HomeDetailViewController.swift in Sources */,
+				4647A7452952232900C32B3D /* UIView + Extension.swift in Sources */,
 				467C77052948C510008FAC55 /* PhoneNumberFofmatter.swift in Sources */,
 				467C77112948CC02008FAC55 /* HomeViewController.swift in Sources */,
 				467C76D12948C376008FAC55 /* AppDelegate.swift in Sources */,
@@ -453,6 +476,7 @@
 				467C76D32948C376008FAC55 /* SceneDelegate.swift in Sources */,
 				4647A7342951DE4800C32B3D /* LoginViewController.swift in Sources */,
 				4647A7362951DE9A00C32B3D /* ConfirmLoginViewController.swift in Sources */,
+				4647A74829522D4300C32B3D /* HomeViewModel.swift in Sources */,
 				4626EA7E294A079E006C55D9 /* ProfileViewController.swift in Sources */,
 				467C770F2948CBBA008FAC55 /* Bundle + Extension.swift in Sources */,
 				467C771E2948DB30008FAC55 /* PostCell.swift in Sources */,
