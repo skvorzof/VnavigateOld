@@ -17,6 +17,8 @@ final class TabCoordinator {
     }
 
     func start() {
+        UITabBar.appearance().tintColor = CustomColor.orange
+
         homeCoordinator.start()
 
         tabBarController.viewControllers = [
