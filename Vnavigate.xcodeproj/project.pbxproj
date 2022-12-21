@@ -167,10 +167,10 @@
 			isa = PBXGroup;
 			children = (
 				4647A72B2951DCB100C32B3D /* AppCoordinator.swift */,
-				4647A7672953311500C32B3D /* Tab */,
 				4647A72F2951DDB600C32B3D /* Auth */,
 				4626EA722949DDB5006C55D9 /* Home */,
 				4626EA7C294A077F006C55D9 /* Profile */,
+				4647A7672953311500C32B3D /* Tab */,
 			);
 			path = Flows;
 			sourceTree = "<group>";

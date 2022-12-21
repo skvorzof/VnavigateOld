@@ -15,50 +15,49 @@ class HomeViewController: UIViewController {
     var dataSource: DataSource?
 
     private let coordinator: HomeCoordinator
-    
-    private var collectionView: UICollectionView = UICollectionView()
-    
+
+    private var collectionView: UICollectionView!
+
     init(coordinator: HomeCoordinator) {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
 
-        createCollectionView()
-        createDataSource()
+        configureCollectionView()
         reloadData()
     }
 
-    private func createCollectionView() {
+    private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         view.addSubview(collectionView)
 
-        collectionView.register(FriendCell.self, forCellWithReuseIdentifier: FriendCell.identifier)
-        collectionView.register(PostCell.self, forCellWithReuseIdentifier: PostCell.identifier)
-    }
+        let friendCellRegistration = UICollectionView.CellRegistration<FriendCell, Author> { cell, indexPath, model in
+            cell.setupCell(with: model)
+        }
 
-    private func createDataSource() {
+        let postCellRegistration = UICollectionView.CellRegistration<PostCell, Author> { cell, indexPath, model in
+            cell.setupCell(with: model)
+        }
+
         dataSource = DataSource(
             collectionView: collectionView,
-            cellProvider: { collectionView, indexPath, item in
-                switch self.sections[indexPath.section].type {
+            cellProvider: { [weak self] collectionView, indexPath, model -> UICollectionViewCell? in
+
+                switch self?.sections[indexPath.section].type {
                 case "friends":
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCell.identifier, for: indexPath) as? FriendCell
-                    cell?.setupCell(with: item)
-                    return cell
+                    return collectionView.dequeueConfiguredReusableCell(using: friendCellRegistration, for: indexPath, item: model)
                 default:
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.identifier, for: indexPath) as? PostCell
-                    cell?.setupCell(with: item)
-                    return cell
+                    return collectionView.dequeueConfiguredReusableCell(using: postCellRegistration, for: indexPath, item: model)
                 }
             })
     }
