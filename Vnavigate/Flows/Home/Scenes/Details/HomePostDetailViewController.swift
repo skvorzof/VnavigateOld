@@ -1,19 +1,15 @@
 //
-//  HomeDetailViewController.swift
+//  HomePostDetailViewController.swift
 //  Vnavigate
 //
-//  Created by Dima Skvortsov on 14.12.2022.
+//  Created by Dima Skvortsov on 22.12.2022.
 //
 
 import UIKit
 
-class HomeDetailViewController: UIViewController {
+class HomePostDetailViewController: UIViewController {
 
-    let tempData = Author(
-        name: "Клара Цеханасянц", profession: "дизайнер", avatar: "6", photos: [],
-        posts: [
-            Post(thumbnail: "cover", article: "Работаю пять дней в неделю. Встать в пять утра, сборы собаки, мужа, ребёнка. В семь уже бегу на транспорт. Домой приезжаю в восемь, готовка, уборка, спорт. Спать ложусь в полночь в лучшем случае. Спустя пару таких лет засыпаю постоянно, на работе вообще опен спейс. Как я ещё не сошла с ума? Я сплю в туалете на работе!P. S. Туалеты чистые, кабинок много на этаж, моют несколько раз в день.", isLike: true, like: 1, isFavorites: true)
-        ])
+    private let author: Author
 
     private let avatarImage = CircularImageView()
     private let authorLabel = UILabel()
@@ -30,6 +26,15 @@ class HomeDetailViewController: UIViewController {
     private let likeLabel = UILabel()
     private let favoriteIcon = UIImageView()
 
+    init(author: Author) {
+        self.author = author
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -37,7 +42,7 @@ class HomeDetailViewController: UIViewController {
         setSubviews(avatarImage, authorLabel, professionLabel, thumbnailImage, articleLabel, likeIcon, likeLabel, favoriteIcon)
         setConstraints()
 
-        setupCell(with: tempData)
+        setupModel(with: author)
     }
 
     private func setSubviews(_ subviews: UIView...) {
@@ -47,7 +52,7 @@ class HomeDetailViewController: UIViewController {
         }
     }
 
-    func setupCell(with post: Author) {
+    func setupModel(with post: Author) {
         avatarImage.image = UIImage(named: post.avatar)
         authorLabel.text = post.name
         professionLabel.text = post.profession

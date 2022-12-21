@@ -9,17 +9,17 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    let sections = Bundle.main.decode([Section].self, from: "model.json")
-
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Author>
-    var dataSource: DataSource?
-
     private let coordinator: HomeCoordinator
+    private let viewModel: HomeViewModel
+    private let layoutManager = LayoutManager()
+
+    private var dataSource: AuthorsLisDiffableDataSource!
 
     private var collectionView: UICollectionView!
 
-    init(coordinator: HomeCoordinator) {
+    init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -29,17 +29,22 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
 
-        configureCollectionView()
-        reloadData()
+        configureColletionView()
+        viewModel.loadData()
+        dataSource.apply(viewModel.dataSourceSnapshot)
+
+        viewModel.showError = { [weak self] message in
+            self?.showAlert(with: "Ошибка", and: message)
+        }
     }
 
-    private func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionLayout())
+    private func configureColletionView() {
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
+        view.addSubview(collectionView)
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
-        view.addSubview(collectionView)
+        collectionView.delegate = self
 
         let friendCellRegistration = UICollectionView.CellRegistration<FriendCell, Author> { cell, indexPath, model in
             cell.setupCell(with: model)
@@ -49,64 +54,44 @@ class HomeViewController: UIViewController {
             cell.setupCell(with: model)
         }
 
-        dataSource = DataSource(
-            collectionView: collectionView,
-            cellProvider: { [weak self] collectionView, indexPath, model -> UICollectionViewCell? in
+        dataSource = AuthorsLisDiffableDataSource(
+            collectionView: collectionView
+        ) { collectionView, indexPath, model -> UICollectionViewCell in
 
-                switch self?.sections[indexPath.section].type {
-                case "friends":
-                    return collectionView.dequeueConfiguredReusableCell(using: friendCellRegistration, for: indexPath, item: model)
-                default:
-                    return collectionView.dequeueConfiguredReusableCell(using: postCellRegistration, for: indexPath, item: model)
-                }
-            })
-    }
-
-    private func reloadData() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Author>()
-        snapshot.appendSections(sections)
-
-        for section in sections {
-            snapshot.appendItems(section.items, toSection: section)
+            switch self.viewModel.authorsSections[indexPath.section].type {
+            case "friends":
+                return collectionView.dequeueConfiguredReusableCell(using: friendCellRegistration, for: indexPath, item: model)
+            default:
+                return collectionView.dequeueConfiguredReusableCell(using: postCellRegistration, for: indexPath, item: model)
+            }
         }
-
-        dataSource?.apply(snapshot)
     }
+}
 
-    private func createCompositionLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
-            let section = self.sections[sectionIndex].type
+extension HomeViewController {
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
+            let section = self?.viewModel.authorsSections[sectionIndex].type
 
             switch section {
             case "friends":
-                return self.createFriendSection()
+                return self?.layoutManager.createFriendSection()
             default:
-                return self.createPostSection()
+                return self?.layoutManager.createPostSection()
             }
         }
         return layout
     }
+}
 
-    private func createFriendSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(
-            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1)))
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: .init(widthDimension: .estimated(60), heightDimension: .estimated(60)), subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        section.interGroupSpacing = 10
-        section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
-        return section
-    }
-
-    private func createPostSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(
-            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(410)))
-        item.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
-        let group = NSCollectionLayoutGroup.vertical(
-            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = .init(top: 50, leading: 0, bottom: 0, trailing: 0)
-        return section
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let author = dataSource.itemIdentifier(for: indexPath) else { return }
+        switch viewModel.authorsSections[indexPath.section].type {
+        case "friends":
+            coordinator.coordinateToHomeAuthorProfile(author: author)
+        default:
+            coordinator.coordinateToHomePostDetail(author: author)
+        }
     }
 }

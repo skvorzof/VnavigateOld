@@ -5,7 +5,7 @@
 //  Created by Dima Skvortsov on 13.12.2022.
 //
 
-struct Section: Decodable, Hashable {
+struct AuthorsSections: Decodable, Hashable {
     let type: String
     let items: [Author]
 }

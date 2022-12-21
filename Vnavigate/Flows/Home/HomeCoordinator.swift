@@ -16,12 +16,23 @@ final class HomeCoordinator {
     }
 
     func start() {
-        let homeViewController = HomeViewController(coordinator: self)
+        let viewModel = HomeViewModel()
+        let homeViewController = HomeViewController(coordinator: self, viewModel: viewModel)
+        homeViewController.title = "Главная"
         navigationController.viewControllers = [homeViewController]
         navigationController.tabBarItem = UITabBarItem(
-            title: "Главная",
+            title: nil,
             image: UIImage(systemName: "house"),
             selectedImage: UIImage(systemName: "house.fill"))
+    }
+    
+    func coordinateToHomePostDetail(author: Author) {
+        let homePostDetailViewController = HomePostDetailViewController(author: author)
+        navigationController.pushViewController(homePostDetailViewController, animated: true)
+    }
+    
+    func coordinateToHomeAuthorProfile(author: Author) {
+        print("coordinateToHomeAuthorProfile ->")
     }
 }
 
