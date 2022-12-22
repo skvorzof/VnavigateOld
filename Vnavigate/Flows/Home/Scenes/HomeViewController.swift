@@ -29,13 +29,14 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viewModel.showError = { [weak self] message in
+            self?.showAlert(with: "Ошибка", and: message)
+        }
+
         configureColletionView()
         viewModel.loadData()
         dataSource.apply(viewModel.dataSourceSnapshot)
 
-        viewModel.showError = { [weak self] message in
-            self?.showAlert(with: "Ошибка", and: message)
-        }
     }
 
     private func configureColletionView() {

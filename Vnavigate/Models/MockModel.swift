@@ -13,6 +13,7 @@ struct AuthorsSections: Decodable, Hashable {
 struct Author: Decodable, Hashable {
     let name: String
     let profession: String
+    let isFriend: Bool
     let avatar: String
     let photos: [Photo]
     let posts: [Post]
