@@ -11,7 +11,6 @@ class HomeViewController: UIViewController {
 
     private let coordinator: HomeCoordinator
     private let viewModel: HomeViewModel
-    private let layoutManager = LayoutManager()
 
     private var dataSource: AuthorsLisDiffableDataSource!
 
@@ -75,9 +74,9 @@ extension HomeViewController {
 
             switch section {
             case "friends":
-                return self?.layoutManager.createFriendSection()
+                return LayoutManager.shared.createFriendSection()
             default:
-                return self?.layoutManager.createPostSection()
+                return LayoutManager.shared.createPostSection()
             }
         }
         return layout

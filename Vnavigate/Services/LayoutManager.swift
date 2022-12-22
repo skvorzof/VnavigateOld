@@ -9,6 +9,10 @@ import UIKit
 
 struct LayoutManager {
 
+    static let shared = LayoutManager()
+
+    private init() {}
+
     func createFriendSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
             layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1)))
