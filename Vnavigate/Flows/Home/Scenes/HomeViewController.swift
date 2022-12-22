@@ -11,10 +11,23 @@ class HomeViewController: UIViewController {
 
     private let coordinator: HomeCoordinator
     private let viewModel: HomeViewModel
+    private var dataSource: AuthorsLisDiffableDataSource?
 
-    private var dataSource: AuthorsLisDiffableDataSource!
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        return activityIndicator
+    }()
 
-    private var collectionView: UICollectionView!
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
+        view.addSubview(collectionView)
+        return collectionView
+    }()
 
     init(coordinator: HomeCoordinator, viewModel: HomeViewModel) {
         self.coordinator = coordinator
@@ -29,23 +42,33 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.showError = { [weak self] message in
-            self?.showAlert(with: "Ошибка", and: message)
-        }
-
         configureColletionView()
-        viewModel.loadData()
-        dataSource.apply(viewModel.dataSourceSnapshot)
+        configureVewModel()
+        viewModel.changeState(.initial)
+    }
+
+    // MARK: - configureVewModel
+    private func configureVewModel() {
+        viewModel.updateState = { [weak self] state in
+            guard let self = self else { return }
+
+            switch state {
+            case .initial:
+                break
+            case .loading:
+                self.activityIndicator.startAnimating()
+            case .loaded:
+                self.activityIndicator.stopAnimating()
+                self.dataSource?.apply(self.viewModel.dataSourceSnapshot)
+            case .error(let error):
+                self.showAlert(with: "Ошибка", and: error)
+            }
+        }
 
     }
 
+    // MARK: - configureColletionView
     private func configureColletionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
-        view.addSubview(collectionView)
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .systemBackground
-        collectionView.delegate = self
-
         let friendCellRegistration = UICollectionView.CellRegistration<FriendCell, Author> { cell, indexPath, model in
             cell.setupCell(with: model)
         }
@@ -68,6 +91,7 @@ class HomeViewController: UIViewController {
     }
 }
 
+// MARK: - createCompositionalLayout
 extension HomeViewController {
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
@@ -84,9 +108,10 @@ extension HomeViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let author = dataSource.itemIdentifier(for: indexPath) else { return }
+        guard let author = dataSource?.itemIdentifier(for: indexPath) else { return }
         switch viewModel.authorsSections[indexPath.section].type {
         case "friends":
             coordinator.coordinateToHomeAuthorProfile(author: author)

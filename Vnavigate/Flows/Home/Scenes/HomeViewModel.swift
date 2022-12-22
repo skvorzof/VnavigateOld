@@ -9,6 +9,25 @@ import UIKit
 
 final class HomeViewModel {
 
+    enum Action {
+        case initial
+    }
+
+    enum State {
+        case initial
+        case loading
+        case loaded
+        case error(String)
+    }
+
+    var updateState: ((State) -> Void)?
+
+    private(set) var state: State = .initial {
+        didSet {
+            updateState?(state)
+        }
+    }
+
     var dataSourceSnapshot = AuthorsListDiffableSnapshot()
 
     var authorsSections = [AuthorsSections]() {
@@ -17,15 +36,18 @@ final class HomeViewModel {
         }
     }
 
-    var showError: ((String) -> Void)?
-
-    func loadData() {
-        FetchService.shared.fetchAuthorSection { [weak self] result in
-            switch result {
-            case .success(let authors):
-                self?.authorsSections = authors
-            case .failure(let error):
-                self?.showError?(error.localizedDescription)
+    func changeState(_ action: Action) {
+        switch action {
+        case .initial:
+            state = .loading
+            FetchService.shared.fetchAuthorSection { [weak self] result in
+                switch result {
+                case .success(let authors):
+                    self?.authorsSections = authors
+                    self?.state = .loaded
+                case .failure(let error):
+                    self?.state = .error(error.localizedDescription)
+                }
             }
         }
     }
