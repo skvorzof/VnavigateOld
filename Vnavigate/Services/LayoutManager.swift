@@ -35,4 +35,15 @@ struct LayoutManager {
         section.contentInsets = .init(top: 50, leading: 0, bottom: 0, trailing: 0)
         return section
     }
+
+    func createProfileSection() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(410)))
+        item.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
+        let group = NSCollectionLayoutGroup.vertical(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 50, leading: 0, bottom: 0, trailing: 0)
+        return section
+    }
 }

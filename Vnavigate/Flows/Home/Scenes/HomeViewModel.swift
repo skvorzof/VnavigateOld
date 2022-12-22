@@ -9,15 +9,12 @@ import UIKit
 
 final class HomeViewModel {
 
-    enum Action {
-        case initial
-    }
+    var dataSourceSnapshot = AuthorsListDiffableSnapshot()
 
-    enum State {
-        case initial
-        case loading
-        case loaded
-        case error(String)
+    private(set) var authorsSections = [AuthorsSections]() {
+        didSet {
+            dataSourceSnapshot = makeSnapshot(from: authorsSections)
+        }
     }
 
     var updateState: ((State) -> Void)?
@@ -28,19 +25,11 @@ final class HomeViewModel {
         }
     }
 
-    var dataSourceSnapshot = AuthorsListDiffableSnapshot()
-
-    var authorsSections = [AuthorsSections]() {
-        didSet {
-            dataSourceSnapshot = makeSnapshot(from: authorsSections)
-        }
-    }
-
     func changeState(_ action: Action) {
         switch action {
         case .initial:
             state = .loading
-            FetchService.shared.fetchAuthorSection { [weak self] result in
+            FetchService.shared.fetchAuthorsSections { [weak self] result in
                 switch result {
                 case .success(let authors):
                     self?.authorsSections = authors

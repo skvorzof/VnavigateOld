@@ -10,6 +10,8 @@ struct AuthorsSections: Decodable, Hashable {
     let items: [Author]
 }
 
+
+
 struct Author: Decodable, Hashable {
     let name: String
     let profession: String

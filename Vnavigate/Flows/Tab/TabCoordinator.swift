@@ -11,6 +11,7 @@ final class TabCoordinator {
 
     private let tabBarController: UITabBarController
     private let homeCoordinator = HomeCoordinator(navigationController: UINavigationController())
+    private let profileCoordinator = ProfileCoordinator(navigationController: UINavigationController())
 
     init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
@@ -18,11 +19,14 @@ final class TabCoordinator {
 
     func start() {
         UITabBar.appearance().tintColor = CustomColor.orange
+        UITabBar.appearance().unselectedItemTintColor = CustomColor.accent
 
         homeCoordinator.start()
+        profileCoordinator.start()
 
         tabBarController.viewControllers = [
-            homeCoordinator.navigationController
+            profileCoordinator.navigationController,
+            homeCoordinator.navigationController,
         ]
     }
 }

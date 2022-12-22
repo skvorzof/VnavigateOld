@@ -9,3 +9,6 @@ import UIKit
 
 typealias AuthorsLisDiffableDataSource = UICollectionViewDiffableDataSource<AuthorsSections, Author>
 typealias AuthorsListDiffableSnapshot = NSDiffableDataSourceSnapshot<AuthorsSections, Author>
+
+typealias AuthorDetailDiffableDataSource = UICollectionViewDiffableDataSource<ProfileSection, Author>
+typealias AuthorDetailDiffableSnapshot = NSDiffableDataSourceSnapshot<ProfileSection, Author>
