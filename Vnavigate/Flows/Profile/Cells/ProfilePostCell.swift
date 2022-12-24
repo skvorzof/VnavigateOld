@@ -1,17 +1,14 @@
 //
-//  ProfileInfoCell.swift
+//  ProfilePostCell.swift
 //  Vnavigate
 //
-//  Created by Dima Skvortsov on 22.12.2022.
+//  Created by Dima Skvortsov on 24.12.2022.
 //
 
 import UIKit
 
-class ProfileInfoCell: UICollectionViewCell {
+class ProfilePostCell: UICollectionViewCell {
 
-    private let avatarImage = CircularImageView()
-    private let authorLabel = UILabel()
-    private let professionLabel = UILabel()
     private let thumbnailImage = UIImageView()
 
     private let articleLabel: UILabel = {
@@ -24,11 +21,32 @@ class ProfileInfoCell: UICollectionViewCell {
     private let likeLabel = UILabel()
     private let favoriteIcon = UIImageView()
 
+    var viewModel: ProfilePostCellViewModel? {
+        didSet {
+            thumbnailImage.image = UIImage(named: viewModel?.thumbnail ?? "plus")
+            articleLabel.text = viewModel?.article.limitedText(to: 120)
+
+            if (viewModel?.isLike) != nil {
+                likeIcon.image = UIImage(systemName: "heart.fill")
+            } else {
+                likeIcon.image = UIImage(systemName: "heart")
+            }
+
+            likeLabel.text = "\(String(describing: viewModel?.like))"
+
+            if (viewModel?.isFavorites) != nil {
+                favoriteIcon.image = UIImage(systemName: "bookmark.fill")
+            } else {
+                favoriteIcon.image = UIImage(systemName: "bookmark")
+            }
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground
 
-        setSubviews(avatarImage, authorLabel, professionLabel, thumbnailImage, articleLabel, likeIcon, likeLabel, favoriteIcon)
+        setSubviews(thumbnailImage, articleLabel, likeIcon, likeLabel, favoriteIcon)
         setConstraints()
     }
 
@@ -44,9 +62,9 @@ class ProfileInfoCell: UICollectionViewCell {
     }
 
     func setupCell(with post: Author) {
-        avatarImage.image = UIImage(named: post.avatar)
-        authorLabel.text = post.name
-        professionLabel.text = post.profession
+        //        avatarImage.image = UIImage(named: post.avatar)
+        //        authorLabel.text = post.name
+        //        professionLabel.text = post.profession
 
         for item in post.posts {
             thumbnailImage.image = UIImage(named: item.thumbnail)
@@ -70,19 +88,8 @@ class ProfileInfoCell: UICollectionViewCell {
 
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            avatarImage.widthAnchor.constraint(equalToConstant: 60),
-            avatarImage.heightAnchor.constraint(equalToConstant: 60),
-            avatarImage.topAnchor.constraint(equalTo: topAnchor),
-            avatarImage.leadingAnchor.constraint(equalTo: leadingAnchor),
-
-            authorLabel.topAnchor.constraint(equalTo: avatarImage.topAnchor, constant: 7),
-            authorLabel.leadingAnchor.constraint(equalTo: avatarImage.trailingAnchor, constant: 10),
-
-            professionLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 5),
-            professionLabel.leadingAnchor.constraint(equalTo: authorLabel.leadingAnchor),
-
             thumbnailImage.heightAnchor.constraint(equalToConstant: 200),
-            thumbnailImage.topAnchor.constraint(equalTo: professionLabel.bottomAnchor, constant: 20),
+            thumbnailImage.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             thumbnailImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             thumbnailImage.trailingAnchor.constraint(equalTo: trailingAnchor),
 

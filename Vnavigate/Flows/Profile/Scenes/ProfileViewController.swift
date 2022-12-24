@@ -7,14 +7,11 @@
 
 import UIKit
 
-
-
 class ProfileViewController: UIViewController {
-    
 
     private let coordinator: ProfileCoordinator
     private let viewModel: ProfileViewModel
-    private var dataSource: AuthorDetailDiffableDataSource?
+    private var dataSource: ProfileDiffableDataSource?
 
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
@@ -24,11 +21,11 @@ class ProfileViewController: UIViewController {
     }()
 
     private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .systemBackground
-        collectionView.delegate = self
-        view.addSubview(collectionView)
+        let collectionView = UICollectionView(
+            frame: view.bounds,
+            collectionViewLayout: ProfileCompositionalLayout { [weak self] in
+                self?.viewModel.dataSourceSnapshot.sectionIdentifiers[$0].layoutType ?? .infoLayout
+            })
         return collectionView
     }()
 
@@ -49,7 +46,7 @@ class ProfileViewController: UIViewController {
         configureVewModel()
         viewModel.changeState(.initial)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -71,67 +68,46 @@ class ProfileViewController: UIViewController {
                 self.showAlert(with: "Ошибка", and: error)
             }
         }
-
     }
 
     // MARK: - configureColletionView
     private func configureColletionView() {
-        let profileInfoCellRegistration = UICollectionView.CellRegistration<ProfileInfoCell, Author> { cell, indexPath, model in
-            cell.setupCell(with: model)
-        }
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
+        collectionView.register(cellType: ProfileInfoCell.self)
+        collectionView.register(cellType: ProfilePhotoCell.self)
+        collectionView.register(cellType: ProfilePostCell.self)
+        view.addSubview(collectionView)
 
-        let postCellRegistration = UICollectionView.CellRegistration<PostCell, Author> { cell, indexPath, model in
-            cell.setupCell(with: model)
-        }
-
-        dataSource = AuthorDetailDiffableDataSource(
-            collectionView: collectionView
-        ) { collectionView, indexPath, model -> UICollectionViewCell in
-
-            switch ProfileSection(rawValue: indexPath.section) {
-            case .info:
-                return collectionView.dequeueConfiguredReusableCell(using: profileInfoCellRegistration, for: indexPath, item: model)
-            case .photos:
-                return collectionView.dequeueConfiguredReusableCell(using: profileInfoCellRegistration, for: indexPath, item: model)
-            case .posts:
-                return collectionView.dequeueConfiguredReusableCell(using: postCellRegistration, for: indexPath, item: model)
-            case .none:
-                return UICollectionViewCell()
+        dataSource = ProfileDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item in
+            switch item {
+            case .infoItem(let viewModelCell):
+                let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ProfileInfoCell.self)
+                cell.viewModel = viewModelCell
+                return cell
+            case .photosItem(let viewModelCell):
+                let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ProfilePhotoCell.self)
+                cell.viewModel = viewModelCell
+                return cell
+            case .postsItem(let viewModelCell):
+                let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ProfilePostCell.self)
+                cell.viewModel = viewModelCell
+                return cell
             }
         }
-    }
-}
-
-// MARK: - createCompositionalLayout
-extension ProfileViewController {
-    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
-
-            let section = ProfileSection(rawValue: sectionIndex)
-            switch section {
-            case .info:
-                return LayoutManager.shared.createProfileSection()
-            case .photos:
-                return LayoutManager.shared.createFriendSection()
-            case .posts:
-                return LayoutManager.shared.createPostSection()
-            case .none:
-                return LayoutManager.shared.createPostSection()
-            }
-        }
-        return layout
     }
 }
 
 // MARK: - UICollectionViewDelegate
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let author = dataSource?.itemIdentifier(for: indexPath) else { return }
-//        switch viewModel.authorsSections[indexPath.section].type {
-//        case "friends":
-//            break
-//        default:
-//            break
-//        }
+        //        guard let author = dataSource?.itemIdentifier(for: indexPath) else { return }
+        //        switch viewModel.authorsSections[indexPath.section].type {
+        //        case "friends":
+        //            break
+        //        default:
+        //            break
+        //        }
     }
 }
