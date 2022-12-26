@@ -8,7 +8,7 @@
 import UIKit
 
 class ConfirmRegisterViewController: UIViewController {
-    
+
     private let coordinator: AuthCoordinator
 
     private let titleLabel: UILabel = {
@@ -71,7 +71,7 @@ class ConfirmRegisterViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     init(coordinator: AuthCoordinator) {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -129,6 +129,6 @@ class ConfirmRegisterViewController: UIViewController {
     }
 
     @objc private func didTapRegisterButton() {
-
+        coordinator.coordinateToHomeFlow()
     }
 }

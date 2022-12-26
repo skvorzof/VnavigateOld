@@ -129,6 +129,6 @@ class ConfirmLoginViewController: UIViewController {
     }
 
     @objc private func didTapLoginButton() {
-
+        coordinator.coordinateToHomeFlow()
     }
 }

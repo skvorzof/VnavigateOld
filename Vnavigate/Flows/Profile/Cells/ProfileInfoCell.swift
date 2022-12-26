@@ -37,6 +37,7 @@ class ProfileInfoCell: UICollectionViewCell {
         button.imageView?.contentMode = .scaleAspectFit
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
+        button.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2))
         button.addTarget(self, action: #selector(didTapsettingsButton), for: .touchUpInside)
         return button
     }()
@@ -188,7 +189,7 @@ class ProfileInfoCell: UICollectionViewCell {
             professionLabel.leadingAnchor.constraint(equalTo: authorLabel.leadingAnchor),
 
             settingsButton.widthAnchor.constraint(equalToConstant: 30),
-            settingsButton.topAnchor.constraint(equalTo: authorLabel.topAnchor),
+            settingsButton.topAnchor.constraint(equalTo: avatarImage.topAnchor, constant: 16),
             settingsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
             editButton.heightAnchor.constraint(equalToConstant: 50),

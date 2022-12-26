@@ -167,12 +167,12 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		461EA3AB2956E31100BBFB14 /* Coordinators */ = {
+		461EA3AB2956E31100BBFB14 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
 				4686645F29546FD9000E321E /* ProfileCoordinator.swift */,
 			);
-			path = Coordinators;
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		461EA3AC2956E32E00BBFB14 /* Models */ = {
@@ -231,10 +231,51 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		4626EA722949DDB5006C55D9 /* Home */ = {
+		461EA3C1295A451000BBFB14 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
 				4647A73E2951E4BB00C32B3D /* HomeCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		461EA3C2295A456900BBFB14 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				4647A7302951DDFC00C32B3D /* AuthViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		461EA3C3295A458500BBFB14 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				4647A73C2951DF6200C32B3D /* AuthCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		461EA3C4295A459D00BBFB14 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				4647A72B2951DCB100C32B3D /* AppCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		461EA3C5295A45D400BBFB14 /* Coodinator */ = {
+			isa = PBXGroup;
+			children = (
+				4647A72D2951DD8100C32B3D /* TabCoordinator.swift */,
+			);
+			path = Coodinator;
+			sourceTree = "<group>";
+		};
+		4626EA722949DDB5006C55D9 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				467C771A2948D776008FAC55 /* Cells */,
+				461EA3C1295A451000BBFB14 /* Coordinator */,
 				4647A7652953303700C32B3D /* Scenes */,
 				461EA3BC295A181E00BBFB14 /* ViewModels */,
 			);
@@ -245,7 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				46866463295473FF000E321E /* Cells */,
-				461EA3AB2956E31100BBFB14 /* Coordinators */,
+				461EA3AB2956E31100BBFB14 /* Coordinator */,
 				461EA3BD295A196500BBFB14 /* Layouts */,
 				461EA3AC2956E32E00BBFB14 /* Models */,
 				4647A7682953314100C32B3D /* Scenes */,
@@ -257,7 +298,7 @@
 		4647A72F2951DDB600C32B3D /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				4647A73C2951DF6200C32B3D /* AuthCoordinator.swift */,
+				461EA3C3295A458500BBFB14 /* Coordinator */,
 				4647A7642953301600C32B3D /* Scenes */,
 			);
 			path = Auth;
@@ -284,7 +325,7 @@
 		4647A7412951E72F00C32B3D /* Flows */ = {
 			isa = PBXGroup;
 			children = (
-				4647A72B2951DCB100C32B3D /* AppCoordinator.swift */,
+				461EA3C4295A459D00BBFB14 /* Coordinator */,
 				4647A72F2951DDB600C32B3D /* Auth */,
 				4626EA722949DDB5006C55D9 /* Home */,
 				4626EA7C294A077F006C55D9 /* Profile */,
@@ -319,7 +360,7 @@
 		4647A7642953301600C32B3D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				4647A7302951DDFC00C32B3D /* AuthViewController.swift */,
+				461EA3C2295A456900BBFB14 /* Base */,
 				4647A7322951DE3A00C32B3D /* Login */,
 				4647A7372951DEBB00C32B3D /* Register */,
 			);
@@ -329,9 +370,8 @@
 		4647A7652953303700C32B3D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				461EA3BB295A181100BBFB14 /* List */,
 				4647A766295330BC00C32B3D /* Details */,
-				467C771A2948D776008FAC55 /* Cells */,
+				461EA3BB295A181100BBFB14 /* List */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -347,7 +387,7 @@
 		4647A7672953311500C32B3D /* Tab */ = {
 			isa = PBXGroup;
 			children = (
-				4647A72D2951DD8100C32B3D /* TabCoordinator.swift */,
+				461EA3C5295A45D400BBFB14 /* Coodinator */,
 			);
 			path = Tab;
 			sourceTree = "<group>";

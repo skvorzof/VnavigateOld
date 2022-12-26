@@ -35,6 +35,14 @@ final class ProfileCoordinator {
     func coordinateToProfileSettings() {
         let profileSettingsViewController = ProfileSettingsViewController()
         profileSettingsViewController.title = "Настройки"
-        navigationController.pushViewController(profileSettingsViewController, animated: true)
+        
+        if let sheet = profileSettingsViewController.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersEdgeAttachedInCompactHeight = true
+            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+        }
+        navigationController.present(profileSettingsViewController, animated: true)
     }
 }
