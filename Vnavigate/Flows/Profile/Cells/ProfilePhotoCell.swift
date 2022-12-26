@@ -9,7 +9,12 @@ import UIKit
 
 class ProfilePhotoCell: UICollectionViewCell {
 
-    private let photoImage = UIImageView()
+    private lazy var photoImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 5
+        imageView.clipsToBounds = true
+        return imageView
+    }()
 
     var viewModel: ProfilePhotoCellViewModel? {
         didSet {
@@ -36,8 +41,8 @@ class ProfilePhotoCell: UICollectionViewCell {
 
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            photoImage.widthAnchor.constraint(equalToConstant: 60),
-            photoImage.heightAnchor.constraint(equalToConstant: 60),
+            photoImage.widthAnchor.constraint(equalToConstant: 70),
+            photoImage.heightAnchor.constraint(equalToConstant: 70),
         ])
     }
 }

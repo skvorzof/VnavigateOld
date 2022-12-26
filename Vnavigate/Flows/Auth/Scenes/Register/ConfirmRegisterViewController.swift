@@ -128,8 +128,7 @@ class ConfirmRegisterViewController: UIViewController {
         ])
     }
 
-    @objc
-    private func didTapRegisterButton() {
+    @objc private func didTapRegisterButton() {
 
     }
 }

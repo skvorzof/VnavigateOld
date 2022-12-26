@@ -26,18 +26,24 @@ class ProfilePostCell: UICollectionViewCell {
             thumbnailImage.image = UIImage(named: viewModel?.thumbnail ?? "plus")
             articleLabel.text = viewModel?.article.limitedText(to: 120)
 
-            if (viewModel?.isLike) != nil {
-                likeIcon.image = UIImage(systemName: "heart.fill")
-            } else {
-                likeIcon.image = UIImage(systemName: "heart")
+            if let isLike = viewModel?.isLike {
+                if isLike {
+                    likeIcon.image = UIImage(systemName: "heart.fill")
+                } else {
+                    likeIcon.image = UIImage(systemName: "heart")
+                }
             }
 
-            likeLabel.text = "\(String(describing: viewModel?.like))"
+            if let like = viewModel?.like {
+                likeLabel.text = "\(like)"
+            }
 
-            if (viewModel?.isFavorites) != nil {
-                favoriteIcon.image = UIImage(systemName: "bookmark.fill")
-            } else {
-                favoriteIcon.image = UIImage(systemName: "bookmark")
+            if let isFavorites = viewModel?.isFavorites {
+                if isFavorites {
+                    favoriteIcon.image = UIImage(systemName: "bookmark.fill")
+                } else {
+                    favoriteIcon.image = UIImage(systemName: "bookmark")
+                }
             }
         }
     }
@@ -61,30 +67,7 @@ class ProfilePostCell: UICollectionViewCell {
         }
     }
 
-    func setupCell(with post: Author) {
-        //        avatarImage.image = UIImage(named: post.avatar)
-        //        authorLabel.text = post.name
-        //        professionLabel.text = post.profession
 
-        for item in post.posts {
-            thumbnailImage.image = UIImage(named: item.thumbnail)
-            articleLabel.text = item.article.limitedText(to: 120)
-
-            if item.isLike {
-                likeIcon.image = UIImage(systemName: "heart.fill")
-            } else {
-                likeIcon.image = UIImage(systemName: "heart")
-            }
-
-            likeLabel.text = "\(item.like)"
-
-            if item.isFavorites {
-                favoriteIcon.image = UIImage(systemName: "bookmark.fill")
-            } else {
-                favoriteIcon.image = UIImage(systemName: "bookmark")
-            }
-        }
-    }
 
     private func setConstraints() {
         NSLayoutConstraint.activate([

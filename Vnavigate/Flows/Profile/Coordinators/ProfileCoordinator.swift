@@ -25,4 +25,16 @@ final class ProfileCoordinator {
             image: UIImage(systemName: "person"),
             selectedImage: UIImage(systemName: "person.fill"))
     }
+    
+    func coordinateToProfilePhotos() {
+        let profilePhotosViewContoller = ProfilePhotosViewContoller()
+        profilePhotosViewContoller.title = "Фотографии"
+        navigationController.pushViewController(profilePhotosViewContoller, animated: true)
+    }
+    
+    func coordinateToProfileSettings() {
+        let profileSettingsViewController = ProfileSettingsViewController()
+        profileSettingsViewController.title = "Настройки"
+        navigationController.pushViewController(profileSettingsViewController, animated: true)
+    }
 }

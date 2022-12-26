@@ -74,10 +74,10 @@ class ProfileViewController: UIViewController {
     private func configureColletionView() {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
-        collectionView.delegate = self
         collectionView.register(cellType: ProfileInfoCell.self)
         collectionView.register(cellType: ProfilePhotoCell.self)
         collectionView.register(cellType: ProfilePostCell.self)
+        collectionView.delegate = self
         view.addSubview(collectionView)
 
         dataSource = ProfileDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item in
@@ -85,11 +85,15 @@ class ProfileViewController: UIViewController {
             case .infoItem(let viewModelCell):
                 let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ProfileInfoCell.self)
                 cell.viewModel = viewModelCell
+                cell.contentView.isUserInteractionEnabled = false
+                cell.delegate = self
                 return cell
+
             case .photosItem(let viewModelCell):
                 let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ProfilePhotoCell.self)
                 cell.viewModel = viewModelCell
                 return cell
+
             case .postsItem(let viewModelCell):
                 let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ProfilePostCell.self)
                 cell.viewModel = viewModelCell
@@ -102,12 +106,28 @@ class ProfileViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension ProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //        guard let author = dataSource?.itemIdentifier(for: indexPath) else { return }
-        //        switch viewModel.authorsSections[indexPath.section].type {
-        //        case "friends":
-        //            break
-        //        default:
-        //            break
-        //        }
+        guard let profile = dataSource?.itemIdentifier(for: indexPath) else { return }
+
+        switch profile {
+        case .infoItem:
+            break
+
+        case .photosItem:
+            coordinator.coordinateToProfilePhotos()
+
+        case .postsItem:
+            break
+        }
+    }
+}
+
+// MARK: - ProfileInfoCellDelegateProtocol
+extension ProfileViewController: ProfileInfoCellDelegateProtocol {
+    func didTapsettingsButton() {
+        coordinator.coordinateToProfileSettings()
+    }
+
+    func didTapPhotosButton() {
+        coordinator.coordinateToProfilePhotos()
     }
 }

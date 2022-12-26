@@ -128,8 +128,7 @@ class ConfirmLoginViewController: UIViewController {
         ])
     }
 
-    @objc
-    private func didTapLoginButton() {
+    @objc private func didTapLoginButton() {
 
     }
 }

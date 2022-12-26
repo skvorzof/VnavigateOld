@@ -97,8 +97,7 @@ class LoginViewController: UIViewController {
         ])
     }
 
-    @objc
-    private func didTapsendButton() {
+    @objc private func didTapsendButton() {
         coordinator.coordinateToConfirmLogin()
     }
 }
