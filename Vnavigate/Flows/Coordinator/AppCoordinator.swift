@@ -5,11 +5,11 @@
 //  Created by Dima Skvortsov on 20.12.2022.
 //
 
+import FirebaseAuth
 import UIKit
 
 final class AppCoordinator {
 
-    private var isAutorized = true
     private var rootViewController: UIViewController?
     private let window: UIWindow
 
@@ -18,7 +18,7 @@ final class AppCoordinator {
     }
 
     func start() {
-        if isAutorized {
+        if Auth.auth().currentUser?.uid != nil {
             homeFlow()
         } else {
             authFlow()

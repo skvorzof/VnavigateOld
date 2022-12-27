@@ -98,7 +98,16 @@ class LoginViewController: UIViewController {
     }
 
     @objc private func didTapsendButton() {
-        coordinator.coordinateToConfirmLogin()
+        if let text = phoneField.text, !text.isEmpty {
+            AuthService.shared.startAuth(phoneNumber: text) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.coordinator.coordinateToConfirmLogin(phoneNumber: text)
+                case .failure(let error):
+                    self?.showAlert(with: "Ошибка", and: "\(error.localizedDescription)")
+                }
+            }
+        }
     }
 }
 

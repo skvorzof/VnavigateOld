@@ -64,8 +64,7 @@ class AuthViewController: UIViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             bannerImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            bannerImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            bannerImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            bannerImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             registerButton.topAnchor.constraint(equalTo: bannerImage.bottomAnchor, constant: 50),
             registerButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),

@@ -125,7 +125,16 @@ class RegisterViewController: UIViewController {
     }
 
     @objc private func didTapNextButton() {
-        coordinator.coordinateToConfirmRegister()
+        if let text = phoneField.text, !text.isEmpty {
+            AuthService.shared.startAuth(phoneNumber: text) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.coordinator.coordinateToConfirmRegister(phoneNumber: text)
+                case .failure(let error):
+                    self?.showAlert(with: "Ошибка", and: "\(error.localizedDescription)")
+                }
+            }
+        }
     }
 }
 
