@@ -26,13 +26,6 @@ final class ProfileCoordinator {
             selectedImage: UIImage(systemName: "person.fill"))
     }
 
-    func coordinateToProfilePhotos() {
-        let profilePhotosViewModel = ProfilePhotosViewModel()
-        let profilePhotosViewContoller = ProfilePhotosViewContoller(coordinator: self, viewModel: profilePhotosViewModel)
-        profilePhotosViewContoller.title = "Фотографии"
-        navigationController.pushViewController(profilePhotosViewContoller, animated: true)
-    }
-
     func coordinateToProfileSettings() {
         let profileSettingsViewController = ProfileSettingsViewController()
         profileSettingsViewController.title = "Настройки"
@@ -46,10 +39,23 @@ final class ProfileCoordinator {
         }
         navigationController.present(profileSettingsViewController, animated: true)
     }
-    
+
+    func coordinateToProfilePhotos() {
+        let profilePhotosViewModel = ProfilePhotosViewModel()
+        let profilePhotosViewContoller = ProfilePhotosViewContoller(coordinator: self, viewModel: profilePhotosViewModel)
+        profilePhotosViewContoller.title = "Фотографии"
+        navigationController.pushViewController(profilePhotosViewContoller, animated: true)
+    }
+
     func coordinateToPhotosDetails(photo: Photo) {
         let profilePhotosDetailViewModel = ProfilePhotosDetailViewModel(photo: photo)
         let profilePhotosDetailViewController = ProfilePhotosDetailViewController(viewModel: profilePhotosDetailViewModel)
         navigationController.present(profilePhotosDetailViewController, animated: true)
+    }
+    
+    func coordinateToPostDetails(post: Post) {
+        let profilePostDetailViewModel = ProfilePostDetailViewModel(post: post)
+        let profilePostDetailViewController = ProfilePostDetailViewController(viewModel: profilePostDetailViewModel)
+        navigationController.pushViewController(profilePostDetailViewController, animated: true)
     }
 }

@@ -67,8 +67,6 @@ class ProfilePostCell: UICollectionViewCell {
         }
     }
 
-
-
     private func setConstraints() {
         NSLayoutConstraint.activate([
             thumbnailImage.heightAnchor.constraint(equalToConstant: 200),

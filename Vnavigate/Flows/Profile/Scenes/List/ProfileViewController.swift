@@ -115,8 +115,10 @@ extension ProfileViewController: UICollectionViewDelegate {
         case .photosItem:
             coordinator.coordinateToProfilePhotos()
 
-        case .postsItem:
-            break
+        case .postsItem(let post):
+            let post = Post(
+                thumbnail: post.thumbnail, article: post.article, isLike: post.isLike, like: post.like, isFavorites: post.isFavorites)
+            coordinator.coordinateToPostDetails(post: post)
         }
     }
 }
