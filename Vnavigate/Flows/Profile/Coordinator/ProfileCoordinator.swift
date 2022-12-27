@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProfileCoordinator {
-    
+
     let navigationController: UINavigationController
 
     init(navigationController: UINavigationController) {
@@ -16,8 +16,8 @@ final class ProfileCoordinator {
     }
 
     func start() {
-        let viewModel = ProfileViewModel()
-        let profileViewController = ProfileViewController(coordinator: self, viewModel: viewModel)
+        let profileViewModel = ProfileViewModel()
+        let profileViewController = ProfileViewController(coordinator: self, viewModel: profileViewModel)
         profileViewController.title = "Профиль"
         navigationController.viewControllers = [profileViewController]
         navigationController.tabBarItem = UITabBarItem(
@@ -25,17 +25,18 @@ final class ProfileCoordinator {
             image: UIImage(systemName: "person"),
             selectedImage: UIImage(systemName: "person.fill"))
     }
-    
+
     func coordinateToProfilePhotos() {
-        let profilePhotosViewContoller = ProfilePhotosViewContoller()
+        let profilePhotosViewModel = ProfilePhotosViewModel()
+        let profilePhotosViewContoller = ProfilePhotosViewContoller(coordinator: self, viewModel: profilePhotosViewModel)
         profilePhotosViewContoller.title = "Фотографии"
         navigationController.pushViewController(profilePhotosViewContoller, animated: true)
     }
-    
+
     func coordinateToProfileSettings() {
         let profileSettingsViewController = ProfileSettingsViewController()
         profileSettingsViewController.title = "Настройки"
-        
+
         if let sheet = profileSettingsViewController.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
             sheet.largestUndimmedDetentIdentifier = .medium
@@ -44,5 +45,11 @@ final class ProfileCoordinator {
             sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
         }
         navigationController.present(profileSettingsViewController, animated: true)
+    }
+    
+    func coordinateToPhotosDetails(photo: Photo) {
+        let profilePhotosDetailViewModel = ProfilePhotosDetailViewModel(photo: photo)
+        let profilePhotosDetailViewController = ProfilePhotosDetailViewController(viewModel: profilePhotosDetailViewModel)
+        navigationController.present(profilePhotosDetailViewController, animated: true)
     }
 }

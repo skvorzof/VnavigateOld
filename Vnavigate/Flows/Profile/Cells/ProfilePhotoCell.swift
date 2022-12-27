@@ -18,7 +18,7 @@ class ProfilePhotoCell: UICollectionViewCell {
 
     var viewModel: ProfilePhotoCellViewModel? {
         didSet {
-            photoImage.image = UIImage(named: viewModel?.photoImage ?? "plus")
+            photoImage.image = UIImage(named: viewModel?.photoImage ?? "noimage")
         }
     }
 
