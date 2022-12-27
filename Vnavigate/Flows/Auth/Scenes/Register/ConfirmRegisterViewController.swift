@@ -10,6 +10,7 @@ import UIKit
 class ConfirmRegisterViewController: UIViewController {
 
     private let coordinator: AuthCoordinator
+    private let viewModel: ConfirmRegisterViewModel
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -28,7 +29,7 @@ class ConfirmRegisterViewController: UIViewController {
 
     private let phoneNumberLabel: UILabel = {
         let label = UILabel()
-        label.text = "+38 099 999 99 99"
+        label.text = "+7"
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         return label
     }()
@@ -72,8 +73,9 @@ class ConfirmRegisterViewController: UIViewController {
         return view
     }()
 
-    init(coordinator: AuthCoordinator) {
+    init(coordinator: AuthCoordinator, viewModel: ConfirmRegisterViewModel) {
         self.coordinator = coordinator
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -84,6 +86,8 @@ class ConfirmRegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
+        phoneNumberLabel.text = viewModel.phoneNumber
 
         setSubviews(subviews: titleLabel, infoLabel, phoneNumberLabel, instructionLabel, smsField, registerButton, bannerImage)
         setConstraints()
@@ -129,6 +133,15 @@ class ConfirmRegisterViewController: UIViewController {
     }
 
     @objc private func didTapRegisterButton() {
-        coordinator.coordinateToHomeFlow()
+        if let text = smsField.text, !text.isEmpty {
+            AuthService.shared.verifyCode(smsCode: text) { [weak self] result in
+                switch result {
+                case .success:
+                    self?.coordinator.coordinateToHomeFlow()
+                case .failure(let error):
+                    self?.showAlert(with: "Ошибка", and: "\(error.localizedDescription)")
+                }
+            }
+        }
     }
 }

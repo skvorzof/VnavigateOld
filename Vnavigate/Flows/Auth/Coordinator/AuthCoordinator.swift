@@ -27,8 +27,9 @@ final class AuthCoordinator {
         navigationController.pushViewController(registerViewController, animated: true)
     }
 
-    func coordinateToConfirmRegister() {
-        let confirmRegisterViewController = ConfirmRegisterViewController(coordinator: self)
+    func coordinateToConfirmRegister(phoneNumber: String) {
+        let confirmRegisterViewModel = ConfirmRegisterViewModel(phoneNumber: phoneNumber)
+        let confirmRegisterViewController = ConfirmRegisterViewController(coordinator: self, viewModel: confirmRegisterViewModel)
         navigationController.pushViewController(confirmRegisterViewController, animated: true)
     }
 
@@ -38,8 +39,9 @@ final class AuthCoordinator {
         navigationController.pushViewController(loginViewController, animated: true)
     }
 
-    func coordinateToConfirmLogin() {
-        let confirmLoginViewController = ConfirmLoginViewController(coordinator: self)
+    func coordinateToConfirmLogin(phoneNumber: String) {
+        let confirmLoginViewModel = ConfirmLoginViewModel(phoneNumber: phoneNumber)
+        let confirmLoginViewController = ConfirmLoginViewController(coordinator: self, viewModel: confirmLoginViewModel)
         navigationController.pushViewController(confirmLoginViewController, animated: true)
     }
 
