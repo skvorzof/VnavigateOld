@@ -29,7 +29,7 @@ final class HomeViewModel {
         switch action {
         case .initial:
             state = .loading
-            FetchService.shared.fetchAuthorsSections { [weak self] result in
+            FetchService.shared.fetchSection(modelType: AuthorsSections.self, fileName: "home") { [weak self] result in
                 switch result {
                 case .success(let authors):
                     self?.authorsSections = authors

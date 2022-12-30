@@ -18,37 +18,16 @@ final class FetchService {
 
     private init() {}
 
-    func fetchAuthorsSections(completion: @escaping (FetchResult<AuthorsSections>) -> Void) {
+    func fetchSection<T: Decodable>(modelType: T.Type, fileName: String, completion: @escaping (FetchResult<T>) -> Void) {
         do {
-            guard let bundlePath = Bundle.main.path(forResource: "model", ofType: "json"),
+            guard let bundlePath = Bundle.main.path(forResource: fileName, ofType: "json"),
                 let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8)
             else {
                 completion(.failure(CustomError.fileNotFound))
                 return
             }
 
-            guard let dacodetedData = try? JSONDecoder().decode([AuthorsSections].self, from: jsonData) else {
-                completion(.failure(CustomError.decodeError))
-                return
-            }
-
-            completion(.success(dacodetedData))
-
-        } catch {
-            completion(.failure(CustomError.unownedError))
-        }
-    }
-
-    func fetchProfileSection(completion: @escaping (FetchResult<Author>) -> Void) {
-        do {
-            guard let bundlePath = Bundle.main.path(forResource: "profile", ofType: "json"),
-                let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8)
-            else {
-                completion(.failure(CustomError.fileNotFound))
-                return
-            }
-
-            guard let dacodetedData = try? JSONDecoder().decode([Author].self, from: jsonData) else {
+            guard let dacodetedData = try? JSONDecoder().decode([T].self, from: jsonData) else {
                 completion(.failure(CustomError.decodeError))
                 return
             }

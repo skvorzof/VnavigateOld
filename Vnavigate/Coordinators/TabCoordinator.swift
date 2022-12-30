@@ -12,6 +12,7 @@ final class TabCoordinator {
     private let tabBarController: UITabBarController
     private let homeCoordinator = HomeCoordinator(navigationController: UINavigationController())
     private let profileCoordinator = ProfileCoordinator(navigationController: UINavigationController())
+    private let favoritesCoordinator = FavoritesCoordinator(navigationController: UINavigationController())
 
     init(tabBarController: UITabBarController) {
         self.tabBarController = tabBarController
@@ -23,8 +24,10 @@ final class TabCoordinator {
 
         homeCoordinator.start()
         profileCoordinator.start()
+        favoritesCoordinator.start()
 
         tabBarController.viewControllers = [
+            favoritesCoordinator.navigationController,
             homeCoordinator.navigationController,
             profileCoordinator.navigationController,
         ]

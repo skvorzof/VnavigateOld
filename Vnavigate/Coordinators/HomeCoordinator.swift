@@ -16,8 +16,8 @@ final class HomeCoordinator {
     }
 
     func start() {
-        let viewModel = HomeViewModel()
-        let homeViewController = HomeViewController(coordinator: self, viewModel: viewModel)
+        let homeViewModel = HomeViewModel()
+        let homeViewController = HomeViewController(coordinator: self, viewModel: homeViewModel)
         homeViewController.title = "Главная"
         navigationController.viewControllers = [homeViewController]
         navigationController.tabBarItem = UITabBarItem(

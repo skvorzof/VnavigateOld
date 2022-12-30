@@ -11,7 +11,7 @@ import UIKit
 final class ProfileViewModel {
 
     var dataSourceSnapshot = ProfileDiffableSnapshot()
-    
+
     private var profile: Author = Author(name: "", profession: "", isFriend: false, avatar: "", photos: [], posts: [])
     private var photos: [Photo] = []
     private var posts: [Post] = []
@@ -28,7 +28,7 @@ final class ProfileViewModel {
         switch action {
         case .initial:
             state = .loading
-            FetchService.shared.fetchProfileSection { [weak self] result in
+            FetchService.shared.fetchSection(modelType: Author.self, fileName: "profile") { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let model):
