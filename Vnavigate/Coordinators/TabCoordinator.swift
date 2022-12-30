@@ -27,9 +27,9 @@ final class TabCoordinator {
         favoritesCoordinator.start()
 
         tabBarController.viewControllers = [
-            favoritesCoordinator.navigationController,
             homeCoordinator.navigationController,
             profileCoordinator.navigationController,
+            favoritesCoordinator.navigationController,
         ]
     }
 }
