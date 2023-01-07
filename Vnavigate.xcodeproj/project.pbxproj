@@ -441,11 +441,11 @@
 		467C76C42948C376008FAC55 = {
 			isa = PBXGroup;
 			children = (
-				460B3EBE296988A500B11759 /* ReadmeAssets */,
-				460B3EBC2969888300B11759 /* README.md */,
 				467C76CF2948C376008FAC55 /* Vnavigate */,
 				467C76E62948C378008FAC55 /* VnavigateTests */,
 				467C76F02948C378008FAC55 /* VnavigateUITests */,
+				460B3EBE296988A500B11759 /* ReadmeAssets */,
+				460B3EBC2969888300B11759 /* README.md */,
 				467C76CE2948C376008FAC55 /* Products */,
 			);
 			sourceTree = "<group>";
