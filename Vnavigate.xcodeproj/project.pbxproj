@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		460B3EBD2969888300B11759 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 460B3EBC2969888300B11759 /* README.md */; };
 		461EA3A22956E24C00BBFB14 /* ProfileInfoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461EA3A12956E24C00BBFB14 /* ProfileInfoCellViewModel.swift */; };
 		461EA3A42956E26A00BBFB14 /* ProfilePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461EA3A32956E26A00BBFB14 /* ProfilePhotoCell.swift */; };
 		461EA3A62956E27A00BBFB14 /* ProfilePhotoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461EA3A52956E27A00BBFB14 /* ProfilePhotoCellViewModel.swift */; };
@@ -95,6 +96,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		460B3EBC2969888300B11759 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		461EA3A12956E24C00BBFB14 /* ProfileInfoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoCellViewModel.swift; sourceTree = "<group>"; };
 		461EA3A32956E26A00BBFB14 /* ProfilePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoCell.swift; sourceTree = "<group>"; };
 		461EA3A52956E27A00BBFB14 /* ProfilePhotoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoCellViewModel.swift; sourceTree = "<group>"; };
@@ -194,6 +196,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		460B3EBE296988A500B11759 /* ReadmeAssets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ReadmeAssets;
+			sourceTree = "<group>";
+		};
 		461EA3A02956E1F600BBFB14 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +441,8 @@
 		467C76C42948C376008FAC55 = {
 			isa = PBXGroup;
 			children = (
+				460B3EBE296988A500B11759 /* ReadmeAssets */,
+				460B3EBC2969888300B11759 /* README.md */,
 				467C76CF2948C376008FAC55 /* Vnavigate */,
 				467C76E62948C378008FAC55 /* VnavigateTests */,
 				467C76F02948C378008FAC55 /* VnavigateUITests */,
@@ -736,6 +747,7 @@
 				467C76DD2948C378008FAC55 /* LaunchScreen.storyboard in Resources */,
 				46F6C63A295F50F50015AABA /* favorites.json in Resources */,
 				461EA3B62959CCBD00BBFB14 /* profile.json in Resources */,
+				460B3EBD2969888300B11759 /* README.md in Resources */,
 				461EA3E1295B70D200BBFB14 /* GoogleService-Info.plist in Resources */,
 				467C77172948CFCA008FAC55 /* home.json in Resources */,
 				467C76DA2948C378008FAC55 /* Assets.xcassets in Resources */,
