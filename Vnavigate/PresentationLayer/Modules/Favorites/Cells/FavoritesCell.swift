@@ -60,9 +60,9 @@ class FavoritesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(post: Post) {
-        thumbnailImage.image = UIImage(named: post.thumbnail)
-        articleLabel.text = post.article.limitedText(to: 120)
+    func configure(post: Favorite) {
+        thumbnailImage.image = UIImage(named: post.thumbnail ?? "")
+        articleLabel.text = post.article?.limitedText(to: 120)
 
         if post.isLike {
             likeIcon.image = UIImage(systemName: "heart.fill")

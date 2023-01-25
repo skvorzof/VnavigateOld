@@ -11,6 +11,8 @@ enum CustomError {
     case fileNotFound
     case decodeError
     case unownedError
+    case coreDataSaveError
+    case coreDataFetchError
 }
 
 extension CustomError: LocalizedError {
@@ -22,6 +24,10 @@ extension CustomError: LocalizedError {
             return NSLocalizedString("Ошибка декодирования", comment: "")
         case .unownedError:
             return NSLocalizedString("Неизвестная ошибка", comment: "")
+        case .coreDataSaveError:
+            return NSLocalizedString("Ошибка сохранения в базе", comment: "")
+        case .coreDataFetchError:
+            return NSLocalizedString("Ошибка запроса из базы", comment: "")
         }
     }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 class FavoritesDetailsViewController: UIViewController {
 
+    private let coordinator: FavoritesCoordinator
     private let viewModel: FavoritesDetailsViewModel
 
     private let thumbnailImage = UIImageView()
@@ -22,8 +23,11 @@ class FavoritesDetailsViewController: UIViewController {
     private let likeIcon = UIImageView()
     private let likeLabel = UILabel()
     private let favoriteIcon = UIImageView()
+    
+    private lazy var tapFavoriteIcon = UITapGestureRecognizer(target: self, action: #selector(didTapFavoriteIcon))
 
-    init(viewModel: FavoritesDetailsViewModel) {
+    init(coordinator: FavoritesCoordinator, viewModel: FavoritesDetailsViewModel) {
+        self.coordinator = coordinator
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -42,7 +46,10 @@ class FavoritesDetailsViewController: UIViewController {
     }
 
     private func setUI() {
-        thumbnailImage.image = UIImage(named: viewModel.post.thumbnail)
+        favoriteIcon.addGestureRecognizer(tapFavoriteIcon)
+        favoriteIcon.isUserInteractionEnabled = true
+        
+        thumbnailImage.image = UIImage(named: viewModel.post.thumbnail ?? "")
         articleLabel.text = viewModel.post.article
 
         if viewModel.post.isLike {
@@ -65,6 +72,12 @@ class FavoritesDetailsViewController: UIViewController {
             subview.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(subview)
         }
+    }
+    
+    @objc
+    private func didTapFavoriteIcon() {
+        CoreDataCoordinator.shared.deleteFavoritePost(post: viewModel.post)
+        coordinator.coordinateToFavorites()
     }
 
     private func setConstraints() {

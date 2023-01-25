@@ -14,7 +14,7 @@ struct FavoritesSection: Hashable {
     }
 
     enum Item: Hashable {
-        case postsItem(Post)
+        case postsItem(Favorite)
     }
 
     enum LayoutType {

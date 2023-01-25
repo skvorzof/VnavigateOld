@@ -11,7 +11,7 @@ final class FavoritesViewModel {
 
     var dataSourceSnapshot = FavoritesDiffableSnapshot()
 
-    var posts: [Post] = [] {
+    var posts: [Favorite] = [] {
         didSet {
             dataSourceSnapshot = makeSnapshot(posts: posts)
         }
@@ -29,7 +29,7 @@ final class FavoritesViewModel {
         switch action {
         case .initial:
             state = .loading
-            FetchService.shared.fetchSection(modelType: Post.self, fileName: "favorites") { result in
+            CoreDataCoordinator.shared.fetchFavoritePosts { result in
                 switch result {
                 case .success(let posts):
                     self.posts = posts
@@ -43,7 +43,7 @@ final class FavoritesViewModel {
         }
     }
 
-    private func makeSnapshot(posts: [Post]) -> FavoritesDiffableSnapshot {
+    private func makeSnapshot(posts: [Favorite]) -> FavoritesDiffableSnapshot {
         var snapshot = FavoritesDiffableSnapshot()
 
         snapshot.appendSections([.posts])

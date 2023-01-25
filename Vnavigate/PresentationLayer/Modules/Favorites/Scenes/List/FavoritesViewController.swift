@@ -47,6 +47,11 @@ class FavoritesViewController: UIViewController {
         viewModel.changeState(.initial)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.changeState(.initial)
+    }
+
     // MARK: - configureVewModel
     private func configureVewModel() {
         viewModel.updateState = { [weak self] state in
@@ -71,7 +76,7 @@ class FavoritesViewController: UIViewController {
         collectionView.delegate = self
         view.addSubview(collectionView)
 
-        let favoritesCellRegistration = UICollectionView.CellRegistration<FavoritesCell, Post> { cell, indexPath, post in
+        let favoritesCellRegistration = UICollectionView.CellRegistration<FavoritesCell, Favorite> { cell, indexPath, post in
             cell.configure(post: post)
         }
 

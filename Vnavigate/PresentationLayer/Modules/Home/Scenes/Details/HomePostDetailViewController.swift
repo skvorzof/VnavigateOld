@@ -25,6 +25,8 @@ class HomePostDetailViewController: UIViewController {
     private let likeIcon = UIImageView()
     private let likeLabel = UILabel()
     private let favoriteIcon = UIImageView()
+    
+    private lazy var tapFavoriteIcon = UITapGestureRecognizer(target: self, action: #selector(didTapFavoriteIcon))
 
     init(author: Author) {
         self.author = author
@@ -53,6 +55,9 @@ class HomePostDetailViewController: UIViewController {
     }
 
     func setupModel(with post: Author) {
+        favoriteIcon.addGestureRecognizer(tapFavoriteIcon)
+        favoriteIcon.isUserInteractionEnabled = true
+        
         avatarImage.image = UIImage(named: post.avatar)
         authorLabel.text = post.name
         professionLabel.text = post.profession
@@ -74,6 +79,21 @@ class HomePostDetailViewController: UIViewController {
             } else {
                 favoriteIcon.image = UIImage(systemName: "bookmark")
             }
+        }
+    }
+    
+    @objc
+    private func didTapFavoriteIcon() {
+        author.posts.forEach { post in
+
+            let post = Post(
+                thumbnail: post.thumbnail,
+                article: post.article,
+                isLike: post.isLike,
+                like: post.like,
+                isFavorites: !post.isFavorites)
+            
+            CoreDataCoordinator.shared.savePostToFavorite(post: post)
         }
     }
 

@@ -14,8 +14,8 @@ class ProfileSettingsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        do {
-            try Auth.auth().signOut()
-        } catch {}
+//        do {
+//            try Auth.auth().signOut()
+//        } catch {}
     }
 }

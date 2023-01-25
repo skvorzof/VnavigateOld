@@ -22,6 +22,8 @@ class ProfilePostDetailViewController: UIViewController {
     private let likeIcon = UIImageView()
     private let likeLabel = UILabel()
     private let favoriteIcon = UIImageView()
+    
+    private lazy var tapFavoriteIcon = UITapGestureRecognizer(target: self, action: #selector(didTapFavoriteIcon))
 
     init(viewModel: ProfilePostDetailViewModel) {
         self.viewModel = viewModel
@@ -42,6 +44,9 @@ class ProfilePostDetailViewController: UIViewController {
     }
 
     private func setUI() {
+        favoriteIcon.addGestureRecognizer(tapFavoriteIcon)
+        favoriteIcon.isUserInteractionEnabled = true
+        
         thumbnailImage.image = UIImage(named: viewModel.post.thumbnail)
         articleLabel.text = viewModel.post.article
 
@@ -65,6 +70,11 @@ class ProfilePostDetailViewController: UIViewController {
             subview.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(subview)
         }
+    }
+    
+    @objc
+    private func didTapFavoriteIcon() {
+        CoreDataCoordinator.shared.savePostToFavorite(post: viewModel.post)
     }
 
     private func setConstraints() {

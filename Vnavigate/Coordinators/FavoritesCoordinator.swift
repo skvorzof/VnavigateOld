@@ -26,9 +26,13 @@ final class FavoritesCoordinator {
             selectedImage: UIImage(systemName: "heart.fill"))
     }
     
-    func coordinateToFavoritesDetails(post: Post) {
+    func coordinateToFavoritesDetails(post: Favorite) {
         let favoritesDetailsViewModel = FavoritesDetailsViewModel(post: post)
-        let favoritesDetailsViewController = FavoritesDetailsViewController(viewModel: favoritesDetailsViewModel)
+        let favoritesDetailsViewController = FavoritesDetailsViewController(coordinator: self, viewModel: favoritesDetailsViewModel)
         navigationController.pushViewController(favoritesDetailsViewController, animated: true)
-    }    
+    }
+    
+    func coordinateToFavorites() {
+        navigationController.popViewController(animated: true)
+    }
 }

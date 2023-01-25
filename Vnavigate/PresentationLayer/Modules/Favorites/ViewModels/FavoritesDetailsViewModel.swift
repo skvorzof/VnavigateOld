@@ -9,9 +9,9 @@ import Foundation
 
 final class FavoritesDetailsViewModel {
     
-    let post: Post
+    let post: Favorite
 
-    init(post: Post) {
+    init(post: Favorite) {
         self.post = post
     }
 }
