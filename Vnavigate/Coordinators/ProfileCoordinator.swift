@@ -27,17 +27,9 @@ final class ProfileCoordinator {
     }
 
     func coordinateToProfileSettings() {
-        let profileSettingsViewController = ProfileSettingsViewController()
+        let profileSettingsViewController = ProfileSettingsViewController(coordinator: self)
         profileSettingsViewController.title = "Настройки"
-
-        if let sheet = profileSettingsViewController.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-            sheet.largestUndimmedDetentIdentifier = .medium
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.prefersEdgeAttachedInCompactHeight = true
-            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
-        }
-        navigationController.present(profileSettingsViewController, animated: true)
+        navigationController.pushViewController(profileSettingsViewController, animated: true)
     }
 
     func coordinateToProfilePhotos() {
@@ -52,10 +44,14 @@ final class ProfileCoordinator {
         let profilePhotosDetailViewController = ProfilePhotosDetailViewController(viewModel: profilePhotosDetailViewModel)
         navigationController.present(profilePhotosDetailViewController, animated: true)
     }
-    
+
     func coordinateToPostDetails(post: Post) {
         let profilePostDetailViewModel = ProfilePostDetailViewModel(post: post)
         let profilePostDetailViewController = ProfilePostDetailViewController(viewModel: profilePostDetailViewModel)
         navigationController.pushViewController(profilePostDetailViewController, animated: true)
+    }
+    
+    func coordinateToRoot() {
+        navigationController.popViewController(animated: true)
     }
 }
