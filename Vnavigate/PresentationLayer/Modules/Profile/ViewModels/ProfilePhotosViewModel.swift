@@ -8,5 +8,5 @@
 import Foundation
 
 final class ProfilePhotosViewModel {
-    let photos = [Photo(photo: "cover"), Photo(photo: "cover2"), Photo(photo: "cover3")]
+    let photos = [Photo(photo: "cover"), Photo(photo: "cover2")]
 }
