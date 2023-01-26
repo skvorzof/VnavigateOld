@@ -70,11 +70,9 @@ class ProfileSettingsViewController: UIViewController {
 
     private lazy var outButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Выйти".uppercased(), for: .normal)
+        button.setTitle("Выйти", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.backgroundColor = .systemRed
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 10
+        button.setTitleColor(.systemRed, for: .normal)
         button.addTarget(self, action: #selector(didTapOutButton), for: .touchUpInside)
         return button
     }()
