@@ -60,7 +60,7 @@ extension HomeSection.LayoutType {
             
         case .postsLayout:
             let item = NSCollectionLayoutItem(
-                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(350)))
+                layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(360)))
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1)), subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
