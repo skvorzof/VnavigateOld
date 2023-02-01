@@ -5,11 +5,6 @@
 //  Created by Dima Skvortsov on 13.12.2022.
 //
 
-struct AuthorsSections: Decodable, Hashable {
-    let type: String
-    let items: [Author]
-}
-
 struct Author: Decodable, Hashable {
     let name: String
     let profession: String

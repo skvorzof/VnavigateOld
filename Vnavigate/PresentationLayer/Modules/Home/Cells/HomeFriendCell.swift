@@ -1,5 +1,5 @@
 //
-//  FriendCell.swift
+//  HomeFriendCell.swift
 //  Vnavigate
 //
 //  Created by Dima Skvortsov on 13.12.2022.
@@ -7,9 +7,15 @@
 
 import UIKit
 
-class FriendCell: UICollectionViewCell {
+class HomeFriendCell: UICollectionViewCell {
 
     private let avatarImage = CircularImageView()
+
+    var viewModel: HomeFriendCellViewModel? {
+        didSet {
+            avatarImage.image = UIImage(named: viewModel?.avatarImage ?? "")
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,10 +32,6 @@ class FriendCell: UICollectionViewCell {
     private func setSubviews() {
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarImage)
-    }
-
-    func setupCell(with author: Author) {
-        avatarImage.image = UIImage(named: author.avatar)
     }
 
     private func setConstraints() {

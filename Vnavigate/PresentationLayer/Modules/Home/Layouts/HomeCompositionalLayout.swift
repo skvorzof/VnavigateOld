@@ -1,15 +1,15 @@
 //
-//  ProfileCompositionalLayout.swift
+//  HomeCompositionalLayout.swift
 //  Vnavigate
 //
-//  Created by Dima Skvortsov on 24.12.2022.
+//  Created by Dima Skvortsov on 01.02.2023.
 //
 
 import UIKit
 
-final class ProfileCompositionalLayout: UICollectionViewCompositionalLayout {
+final class HomeCompositionalLayout: UICollectionViewCompositionalLayout {
     
-    init(layoutTypeProvider: @escaping (Int) -> ProfileSection.LayoutType) {
+    init(layoutTypeProvider: @escaping (Int) -> HomeSection.LayoutType) {
         super.init(sectionProvider: { index, environment in
             return layoutTypeProvider(index).section(environment: environment)
         }, configuration: {
@@ -20,4 +20,5 @@ final class ProfileCompositionalLayout: UICollectionViewCompositionalLayout {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }

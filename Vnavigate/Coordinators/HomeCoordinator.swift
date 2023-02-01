@@ -26,13 +26,13 @@ final class HomeCoordinator {
             selectedImage: UIImage(systemName: "house.fill"))
     }
     
-    func coordinateToHomePostDetail(author: Author) {
-        let homePostDetailViewController = HomePostDetailViewController(author: author)
+    func coordinateToHomePostDetail(post: Post) {
+        let homePostDetailViewController = HomePostDetailViewController(post: post)
         navigationController.pushViewController(homePostDetailViewController, animated: true)
     }
     
     func coordinateToHomeAuthorProfile(author: Author) {
-        print("coordinateToHomeAuthorProfile ->")
+        print("coordinateToHomeAuthorProfile -> \(author.name)")
     }
 }
 

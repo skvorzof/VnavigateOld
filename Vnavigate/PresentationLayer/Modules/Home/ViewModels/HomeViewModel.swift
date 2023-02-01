@@ -9,13 +9,10 @@ import UIKit
 
 final class HomeViewModel {
 
-    var dataSourceSnapshot = AuthorsListDiffableSnapshot()
+    var dataSourceSnapshot = HomeListDiffableSnapshot()
 
-    private(set) var authorsSections = [AuthorsSections]() {
-        didSet {
-            dataSourceSnapshot = makeSnapshot(from: authorsSections)
-        }
-    }
+    var friends: [Author] = []
+    var posts: [Post] = []
 
     var updateState: ((State) -> Void)?
 
@@ -29,25 +26,43 @@ final class HomeViewModel {
         switch action {
         case .initial:
             state = .loading
-            FetchService.shared.fetchSection(modelType: AuthorsSections.self, fileName: "home") { [weak self] result in
+            FetchService.shared.fetchSection(modelType: Author.self, fileName: "data") { [weak self] result in
+                guard let self = self else { return }
                 switch result {
                 case .success(let authors):
-                    self?.authorsSections = authors
-                    self?.state = .loaded
+                    self.makeHomeSectionData(data: authors)
+                    self.dataSourceSnapshot = self.makeSnapshot(friends: self.friends, posts: self.posts)
+                    self.state = .loaded
                 case .failure(let error):
-                    self?.state = .error(error.localizedDescription)
+                    self.state = .error(error.localizedDescription)
                 }
             }
         }
     }
-
-    private func makeSnapshot(from authorsSections: [AuthorsSections]) -> AuthorsListDiffableSnapshot {
-        var snapshot = AuthorsListDiffableSnapshot()
-        snapshot.appendSections(authorsSections)
-
-        for section in authorsSections {
-            snapshot.appendItems(section.items, toSection: section)
+    
+    private func makeHomeSectionData(data: [Author]) {
+        data.forEach { author in
+            if author.isFriend {
+                friends.append(author)
+            }
+            
+            author.posts.forEach { post in
+                posts.append(post)
+            }
         }
+    }
+
+    private func makeSnapshot(friends: [Author], posts: [Post]) -> HomeListDiffableSnapshot {
+        var snapshot = HomeListDiffableSnapshot()
+
+        snapshot.appendSections([.friends])
+        snapshot.appendItems(friends.map { HomeSection.Item.friendsItem(HomeFriendCellViewModel(friend: $0)) }, toSection: .friends)
+
+        snapshot.appendSections([.posts])
+        snapshot.appendItems(
+            posts.map {
+                HomeSection.Item.postsItem(HomePostCellViewModel(post: $0))
+            }, toSection: .posts)
 
         return snapshot
     }

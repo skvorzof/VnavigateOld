@@ -1,5 +1,5 @@
 //
-//  PostCell.swift
+//  HomePostCell.swift
 //  Vnavigate
 //
 //  Created by Dima Skvortsov on 13.12.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PostCell: UICollectionViewCell {
+class HomePostCell: UICollectionViewCell {
 
     private let avatarImage = CircularImageView()
     private let authorLabel = UILabel()
@@ -23,6 +23,33 @@ class PostCell: UICollectionViewCell {
     private let likeIcon = UIImageView()
     private let likeLabel = UILabel()
     private let favoriteIcon = UIImageView()
+    
+    var viewModel: HomePostCellViewModel? {
+        didSet {
+            thumbnailImage.image = UIImage(named: viewModel?.thumbnail ?? "plus")
+            articleLabel.text = viewModel?.article.limitedText(to: 120)
+
+            if let isLike = viewModel?.isLike {
+                if isLike {
+                    likeIcon.image = UIImage(systemName: "heart.fill")
+                } else {
+                    likeIcon.image = UIImage(systemName: "heart")
+                }
+            }
+
+            if let like = viewModel?.like {
+                likeLabel.text = "\(like)"
+            }
+
+            if let isFavorites = viewModel?.isFavorites {
+                if isFavorites {
+                    favoriteIcon.image = UIImage(systemName: "bookmark.fill")
+                } else {
+                    favoriteIcon.image = UIImage(systemName: "bookmark")
+                }
+            }
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,30 +70,30 @@ class PostCell: UICollectionViewCell {
         }
     }
 
-    func setupCell(with post: Author) {
-        avatarImage.image = UIImage(named: post.avatar)
-        authorLabel.text = post.name
-        professionLabel.text = post.profession
-
-        for item in post.posts {
-            thumbnailImage.image = UIImage(named: item.thumbnail)
-            articleLabel.text = item.article.limitedText(to: 120)
-
-            if item.isLike {
-                likeIcon.image = UIImage(systemName: "heart.fill")
-            } else {
-                likeIcon.image = UIImage(systemName: "heart")
-            }
-
-            likeLabel.text = "\(item.like)"
-
-            if item.isFavorites {
-                favoriteIcon.image = UIImage(systemName: "bookmark.fill")
-            } else {
-                favoriteIcon.image = UIImage(systemName: "bookmark")
-            }
-        }
-    }
+//    func setupCell(with post: Author) {
+//        avatarImage.image = UIImage(named: post.avatar)
+//        authorLabel.text = post.name
+//        professionLabel.text = post.profession
+//
+//        for item in post.posts {
+//            thumbnailImage.image = UIImage(named: item.thumbnail)
+//            articleLabel.text = item.article.limitedText(to: 120)
+//
+//            if item.isLike {
+//                likeIcon.image = UIImage(systemName: "heart.fill")
+//            } else {
+//                likeIcon.image = UIImage(systemName: "heart")
+//            }
+//
+//            likeLabel.text = "\(item.like)"
+//
+//            if item.isFavorites {
+//                favoriteIcon.image = UIImage(systemName: "bookmark.fill")
+//            } else {
+//                favoriteIcon.image = UIImage(systemName: "bookmark")
+//            }
+//        }
+//    }
 
     private func setConstraints() {
         NSLayoutConstraint.activate([
