@@ -7,8 +7,8 @@
 
 import UIKit
 
-typealias AuthorsLisDiffableDataSource = UICollectionViewDiffableDataSource<AuthorsSections, Author>
-typealias AuthorsListDiffableSnapshot = NSDiffableDataSourceSnapshot<AuthorsSections, Author>
+typealias HomeLisDiffableDataSource = UICollectionViewDiffableDataSource<HomeSection, HomeSection.Item>
+typealias HomeListDiffableSnapshot = NSDiffableDataSourceSnapshot<HomeSection, HomeSection.Item>
 
 typealias ProfileDiffableDataSource = UICollectionViewDiffableDataSource<ProfileSection, ProfileSection.Item>
 typealias ProfileDiffableSnapshot = NSDiffableDataSourceSnapshot<ProfileSection, ProfileSection.Item>
